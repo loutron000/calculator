@@ -10,30 +10,39 @@
 
   <body>
     <div class="calculator">
+
+        <h1>Scientific Calculator</h1>
+        
       <!-- Display -->
       <div class="display">
         <div id="previous-operand" class="previous-operand"></div>
         <div id="current-operand" class="current-operand">0</div>
       </div>
 
+      <button id="toggle-scientific">▼ Scientific Functions</button>
+
       <!-- Scientific Buttons -->
-      <div class="scientific-buttons">
-        <button class="btn scientific-btn" data-function="sin">sin</button>
-        <button class="btn scientific-btn" data-function="cos">cos</button>
-        <button class="btn scientific-btn" data-function="tan">tan</button>
-        <button class="btn scientific-btn" data-function="log">log</button>
+      <div id="scientific-panel">
+        <div class="scientific-buttons">
+          <button class="btn scientific-btn" data-function="sin">sin</button>
+          <button class="btn scientific-btn" data-function="cos">cos</button>
+          <button class="btn scientific-btn" data-function="tan">tan</button>
+          <button class="btn scientific-btn" data-function="log">log</button>
 
-        <button class="btn scientific-btn" data-function="ln">ln</button>
-        <button class="btn scientific-btn" data-function="sqrt">√</button>
-        <button class="btn scientific-btn" data-function="square">x²</button>
-        <button class="btn scientific-btn" data-function="power">xʸ</button>
+          <button class="btn scientific-btn" data-function="ln">ln</button>
+          <button class="btn scientific-btn" data-function="sqrt">√</button>
+          <button class="btn scientific-btn" data-function="square">x²</button>
+          <button class="btn scientific-btn" data-function="power">xʸ</button>
 
-        <button class="btn scientific-btn" data-function="pi">π</button>
-        <button class="btn scientific-btn" data-function="e">e</button>
-        <button class="btn scientific-btn" data-function="open-paren">(</button>
-        <button class="btn scientific-btn" data-function="close-paren">
-          )
-        </button>
+          <button class="btn scientific-btn" data-function="pi">π</button>
+          <button class="btn scientific-btn" data-function="e">e</button>
+          <button class="btn scientific-btn" data-function="open-paren">
+            (
+          </button>
+          <button class="btn scientific-btn" data-function="close-paren">
+            )
+          </button>
+        </div>
       </div>
 
       <!-- Basic Buttons -->
@@ -43,22 +52,22 @@
         <button class="btn operator" data-function="percent">%</button>
         <button class="btn operator" data-function="divide">/</button>
 
-        <button class="btn" data-function="7">7</button>
-        <button class="btn" data-function="8">8</button>
-        <button class="btn" data-function="9">9</button>
+        <button class="btn" data-number="7">7</button>
+        <button class="btn" data-number="8">8</button>
+        <button class="btn" data-number="9">9</button>
         <button class="btn operator" data-function="multiply">*</button>
 
-        <button class="btn" data-function="4">4</button>
-        <button class="btn" data-function="5">5</button>
-        <button class="btn" data-function="6">6</button>
+        <button class="btn" data-number="4">4</button>
+        <button class="btn" data-number="5">5</button>
+        <button class="btn" data-number="6">6</button>
         <button class="btn operator" data-function="subtract">-</button>
 
-        <button class="btn" data-function="1">1</button>
-        <button class="btn" data-function="2">2</button>
-        <button class="btn" data-function="3">3</button>
+        <button class="btn" data-number="1">1</button>
+        <button class="btn" data-number="2">2</button>
+        <button class="btn" data-number="3">3</button>
         <button class="btn operator" data-function="add">+</button>
 
-        <button class="btn" data-function="0">0</button>
+        <button class="btn" data-number="0">0</button>
         <button class="btn operator" data-function="decimal">.</button>
         <button class="btn equals" data-function="equals">=</button>
       </div>
