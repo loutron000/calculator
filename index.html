@@ -10,9 +10,8 @@
 
   <body>
     <div class="calculator">
+      <h1>Scientific Calculator</h1>
 
-        <h1>Scientific Calculator</h1>
-        
       <!-- Display -->
       <div class="display">
         <div id="previous-operand" class="previous-operand"></div>
@@ -21,9 +20,9 @@
 
       <button id="toggle-scientific">▼ Scientific Functions</button>
 
-      <!-- Scientific Buttons -->
-      <div id="scientific-panel">
-        <div class="scientific-buttons">
+      <!-- Connected Keypad -->
+      <div class="keypad">
+        <div class="scientific-panel">
           <button class="btn scientific-btn" data-function="sin">sin</button>
           <button class="btn scientific-btn" data-function="cos">cos</button>
           <button class="btn scientific-btn" data-function="tan">tan</button>
@@ -43,33 +42,32 @@
             )
           </button>
         </div>
-      </div>
 
-      <!-- Basic Buttons -->
-      <div class="basic-buttons">
-        <button class="btn danger" data-function="clear">AC</button>
-        <button class="btn danger" data-function="backspace">⌫</button>
-        <button class="btn operator" data-function="percent">%</button>
-        <button class="btn operator" data-function="divide">/</button>
+        <div class="basic-panel">
+          <button class="btn danger" data-function="clear">AC</button>
+          <button class="btn danger" data-function="backspace">⌫</button>
+          <button class="btn operator" data-function="percent">%</button>
+          <button class="btn operator" data-function="divide">/</button>
 
-        <button class="btn" data-number="7">7</button>
-        <button class="btn" data-number="8">8</button>
-        <button class="btn" data-number="9">9</button>
-        <button class="btn operator" data-function="multiply">*</button>
+          <button class="btn" data-number="7">7</button>
+          <button class="btn" data-number="8">8</button>
+          <button class="btn" data-number="9">9</button>
+          <button class="btn operator" data-function="multiply">*</button>
 
-        <button class="btn" data-number="4">4</button>
-        <button class="btn" data-number="5">5</button>
-        <button class="btn" data-number="6">6</button>
-        <button class="btn operator" data-function="subtract">-</button>
+          <button class="btn" data-number="4">4</button>
+          <button class="btn" data-number="5">5</button>
+          <button class="btn" data-number="6">6</button>
+          <button class="btn operator" data-function="subtract">-</button>
 
-        <button class="btn" data-number="1">1</button>
-        <button class="btn" data-number="2">2</button>
-        <button class="btn" data-number="3">3</button>
-        <button class="btn operator" data-function="add">+</button>
+          <button class="btn" data-number="1">1</button>
+          <button class="btn" data-number="2">2</button>
+          <button class="btn" data-number="3">3</button>
+          <button class="btn operator" data-function="add">+</button>
 
-        <button class="btn" data-number="0">0</button>
-        <button class="btn operator" data-function="decimal">.</button>
-        <button class="btn equals" data-function="equals">=</button>
+          <button class="btn" data-number="0">0</button>
+          <button class="btn operator" data-function="decimal">.</button>
+          <button class="btn equals" data-function="equals">=</button>
+        </div>
       </div>
     </div>
 
