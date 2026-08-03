@@ -333,14 +333,27 @@ button {
     user-select:none;
 }
 
-@media (max-width: 768px) {
-  .keypad {
-    grid-template-columns: 1fr;
-  }
+@media (max-width:768px){
 
-  #toggle-scientific {
-    display: block;
-  }
+    .keypad{
+        grid-template-columns:1fr;
+    }
+
+    #toggle-scientific{
+        display:block;
+    }
+
+    .scientific-panel{
+        display:none;
+    }
+
+    .scientific-panel.show{
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
+        gap:14px;
+        margin-bottom:15px;
+    }
+
 }
 
 @keyframes fadeIn {

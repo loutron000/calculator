@@ -437,3 +437,16 @@ themeToggle.addEventListener("click", () => {
     localStorage.setItem("theme", "dark");
   }
 });
+
+toggleScientific.addEventListener("click", () => {
+
+    const panel = document.querySelector(".scientific-panel");
+
+    panel.classList.toggle("show");
+
+    toggleScientific.textContent =
+        panel.classList.contains("show")
+        ? "▲ Hide Scientific Functions"
+        : "▼ Scientific Functions";
+
+});
