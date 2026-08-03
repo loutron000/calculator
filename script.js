@@ -8,8 +8,6 @@ const functionButtons = document.querySelectorAll("[data-function]");
 
 const scientificButtons = document.querySelectorAll(".scientific-btn");
 
-const scientificPanel = document.getElementById("scientific-panel");
-
 const toggleScientific = document.getElementById("toggle-scientific");
 
 let currentInput = "0";
@@ -19,6 +17,8 @@ let previousInput = "";
 let operator = null;
 
 let scientificOperator = null;
+
+let shouldResetDisplay = false;
 
 function updateDisplay() {
   currentOperand.textContent = currentInput;
@@ -34,7 +34,15 @@ function updateDisplay() {
 
 numberButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    if (currentInput === "0") {
+    if (shouldResetDisplay) {
+      currentInput = button.dataset.number;
+
+      shouldResetDisplay = false;
+    } else if (
+      currentInput === "0" ||
+      currentInput === "Math Error" ||
+      currentInput === "Cannot divide by 0"
+    ) {
       currentInput = button.dataset.number;
     } else {
       currentInput += button.dataset.number;
@@ -54,6 +62,8 @@ function chooseOperator(selectedOperator) {
   previousOperand.textContent = `${previousInput} ${operator}`;
 
   updateDisplay();
+
+  shouldResetDisplay = false;
 }
 
 functionButtons.forEach((button) => {
@@ -167,14 +177,41 @@ function calculate() {
       break;
 
     case "/":
-      result = current === 0 ? "Cannot divide by 0" : previous / current;
+      if (current === 0) {
+        currentInput = "Cannot divide by 0";
+
+        previousInput = "";
+
+        operator = null;
+
+        updateDisplay();
+
+        return;
+      }
+
+      result = previous / current;
+
       break;
 
     default:
       return;
   }
 
+  if (!isFinite(result)) {
+    currentInput = "Math Error";
+
+    previousInput = "";
+
+    operator = null;
+
+    updateDisplay();
+
+    return;
+  }
+
   currentInput = result.toString();
+
+  shouldResetDisplay = true;
 
   previousInput = "";
 
@@ -191,6 +228,8 @@ function clearCalculator() {
   operator = null;
 
   updateDisplay();
+
+  shouldResetDisplay = false;
 }
 
 function backspace() {
@@ -213,6 +252,8 @@ function appendDecimal() {
 
 function scientificOperation(operation) {
   let value = parseFloat(currentInput);
+
+  if (isNaN(value)) return;
 
   switch (operation) {
     case "sqrt":
@@ -255,6 +296,10 @@ function scientificOperation(operation) {
       return;
   }
 
+  if (!isFinite(currentInput)) {
+    currentInput = "Math Error";
+  }
+
   updateDisplay();
 }
 
@@ -285,33 +330,110 @@ function power() {
 document.addEventListener("keydown", (event) => {
   const key = event.key;
 
+  // Numbers
   if (key >= "0" && key <= "9") {
-    if (currentInput === "0") {
+    if (shouldResetDisplay) {
+      currentInput = key;
+
+      shouldResetDisplay = false;
+    } else if (
+      currentInput === "0" ||
+      currentInput === "Math Error" ||
+      currentInput === "Cannot divide by 0"
+    ) {
       currentInput = key;
     } else {
       currentInput += key;
     }
 
+    flashButton(`[data-number="${key}"]`);
     updateDisplay();
-  } else if (key === ".") {
-    appendDecimal();
-  } else if (key === "+") {
-    chooseOperator("+");
-  } else if (key === "-") {
-    chooseOperator("-");
-  } else if (key === "*") {
-    chooseOperator("*");
-  } else if (key === "/") {
-    event.preventDefault();
-    chooseOperator("/");
-  } else if (key === "Enter" || key === "=") {
-    event.preventDefault();
-    calculate();
-  } else if (key === "Backspace") {
-    backspace();
-  } else if (key === "Escape") {
-    clearCalculator();
-  } else if (key === "%") {
-    percentage();
+    return;
+  }
+
+  switch (key) {
+    case ".":
+      appendDecimal();
+      flashButton('[data-function="decimal"]');
+      break;
+
+    case "+":
+      chooseOperator("+");
+      flashButton('[data-function="add"]');
+      break;
+
+    case "-":
+      chooseOperator("-");
+      flashButton('[data-function="subtract"]');
+      break;
+
+    case "*":
+      chooseOperator("*");
+      flashButton('[data-function="multiply"]');
+      break;
+
+    case "/":
+      event.preventDefault();
+      chooseOperator("/");
+      flashButton('[data-function="divide"]');
+      break;
+
+    case "%":
+      percentage();
+      flashButton('[data-function="percent"]');
+      break;
+
+    case "Enter":
+    case "=":
+      event.preventDefault();
+      calculate();
+      flashButton('[data-function="equals"]');
+      break;
+
+    case "Backspace":
+      backspace();
+      flashButton('[data-function="backspace"]');
+      break;
+
+    case "Escape":
+      clearCalculator();
+      flashButton('[data-function="clear"]');
+      break;
+  }
+});
+
+function flashButton(selector) {
+  const button = document.querySelector(selector);
+
+  if (!button) return;
+
+  button.classList.add("active");
+
+  setTimeout(() => {
+    button.classList.remove("active");
+  }, 120);
+}
+
+const themeToggle = document.getElementById("theme-toggle");
+
+const savedTheme = localStorage.getItem("theme");
+
+if (savedTheme === "light") {
+  document.body.classList.add("light");
+
+  themeToggle.textContent = "🌙";
+}
+
+themeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("light");
+
+  if (document.body.classList.contains("light")) {
+    themeToggle.textContent = "🌙";
+
+    localStorage.setItem("theme", "light");
+  } else {
+    themeToggle.textContent = "☀️";
+
+    localStorage.setItem("theme", "dark");
   }
 });
